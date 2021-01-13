@@ -1,0 +1,1 @@
+window.weixinRegionInfo={"weixinVersion":"7022","apkUrl":"https://dldir1.qq.com/weixin/android/weixin7022android1820_arm64.apk","ts":1610519613955}

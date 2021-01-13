@@ -47,7 +47,7 @@
       #app {
         width: 100%;
       }
-      .loading{
+      .loading {
         display: none;
       }
     </style>
@@ -124,17 +124,19 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.min.js"></script>
     <!-- <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.14.1/index.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/element-ui@2.14.1/lib/index.js"></script>
-    <script src="./region.js"></script>
+    <script src="./output/region.js"></script>
+    <script src="./output/info.js"></script>
     <script>
       Vue.config.devtools = true;
-      var rawData = window.weixinRegionData;
+      var regionData = window.weixinRegionData;
+      var infoData = window.weixinRegionInfo;
       var vm = new Vue({
         el: "#app",
         data() {
           return {
             infoData: [
-              ["微信版本", rawData.weixinVersion],
-              ["apk下载地址(来自官网)", rawData.apkUrl, "download"],
+              ["微信版本", infoData.weixinVersion],
+              ["apk下载地址(来自官网)", infoData.apkUrl, "download"],
               [
                 "apk包内文件mmregioncode_en.txt",
                 "./apk/assets/regioncode/mmregioncode_en.txt",
@@ -165,12 +167,13 @@
                 "./apk/assets/regioncode/mmregioncode_zh_TW.txt",
                 "download",
               ],
-              ["上次解析成功日期",new Date(rawData.ts).toLocaleString()],
+              ["上次解析成功日期", new Date(infoData.ts).toLocaleString()],
               ["解析结果(json)", "./region.json", "download"],
               ["解析结果(js)", "./region.js", "download"],
               ["解析结果(sql, 含建表语句)", "./region.sql", "download"],
+              ["解析结果(csv)", "./region.csv", "download"],
             ],
-            total: rawData.data.length,
+            total: regionData.length,
             currentPage: 1,
             pageSize: 10,
           };
@@ -178,12 +181,12 @@
         computed: {
           regionData() {
             var start = (this.currentPage - 1) * this.pageSize;
-            return rawData.data.slice(start, start + this.pageSize);
+            return regionData.slice(start, start + this.pageSize);
           },
         },
-        mounted(){
-          document.body.classList.remove('loading');
-        }
+        mounted() {
+          document.body.classList.remove("loading");
+        },
       });
     </script>
   </body>

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const PAGE_URL = "https://weixin.qq.com/cgi-bin/readtemplate?uin=&stype=&promote=&fr=&lang=zh_CN&ADTAG=&check=false&t=weixin_download_method&sys=android&loc=weixin,android,web,0";
 const workspacePath = path.parse(__dirname).dir;
-const apkTargetDir = path.join(workspacePath, 'output');
+const apkTargetDir = path.join(workspacePath, 'dist', 'output');
 
 
 async function getDownloadUrl() {
@@ -19,7 +19,7 @@ async function getDownloadUrl() {
 
 
 async function downloadFile(fileUrl: string, forceDownload: boolean) {
-    const fileName = fileUrl.substring(fileUrl.lastIndexOf('/')+1);
+    const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
     const apkTargetPath = path.join(apkTargetDir, fileName);
     if (!forceDownload && fs.existsSync(apkTargetPath)) {
         console.log("apk file already downloaded, skipped");
@@ -34,5 +34,5 @@ async function downloadFile(fileUrl: string, forceDownload: boolean) {
 export default async function downloadApk(forceDownload: boolean = false) {
     const downloadUrl = await getDownloadUrl();
     const apkTargetPath = await downloadFile(downloadUrl, forceDownload);
-    return {path: apkTargetPath, url: downloadUrl};
+    return { path: apkTargetPath, url: downloadUrl };
 }

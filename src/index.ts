@@ -12,12 +12,13 @@ async function main() {
     const files = await unzip(apkPath);
     console.log('start parsefiles')
     const data = parseFiles(files);
-    genResult(version, {
-        weixinVersion: version,
-        apkUrl,
-        data,
-        ts: Date.now(),
-    });
+    genResult(
+        {
+            weixinVersion: version,
+            apkUrl,
+            ts: Date.now(),
+        },
+        data);
     console.log('done')
 }
 
