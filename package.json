@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/AsherWang/wechat-regioncode-collect.git"
   },
-  "main": "./docs/region.js",
+  "main": "./docs/output/region.js",
   "scripts": {
     "rimraf": "./node_modules/rimraf/bin.js",
     "clean" : "rimraf dist/ docs/output",
