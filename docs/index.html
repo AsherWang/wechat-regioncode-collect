@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>微信内置国家省市区信息</title>
+    <meta name="keywords" content="微信,国家省市区信息,apk解包" />
+    <meta
+      name="description"
+      content="解包微信apk获取微信的省市区信息用以和微信开发中获取的用户省市区信息做映射"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/element-ui@2.14.1/lib/theme-chalk/index.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow: auto;
+      }
+      .phone {
+        height: 640px;
+        width: 360px;
+        overflow: hidden;
+        border: none;
+        box-shadow: 2px 2px 2px 2px #bbb;
+        border-radius: 4px;
+        margin: 10px;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      .p-head {
+        font-weight: bold;
+        font-size: 16px;
+        padding: 10px;
+      }
+      #app {
+        width: 100%;
+      }
+      .loading{
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="loading">
+    <div class="container">
+      <div id="app">
+        <el-tabs type="border-card">
+          <el-tab-pane label="基本信息">
+            <el-table :data="infoData" :show-header="false">
+              <el-table-column prop="0" label="Key" width="300">
+              </el-table-column>
+              <el-table-column prop="1" label="Value">
+                <template slot-scope="scope">
+                  <span>{{scope.row[1]}}</span>
+                  <span v-if="scope.row[2] === 'download'">
+                    <a style="margin-left: 10px" :href="scope.row[1]" download
+                      >下载</a
+                    >
+                  </span>
+                </template>
+              </el-table-column>
+            </el-table>
+            <a
+              style="margin: 10px"
+              target="_blank"
+              href="https://weixin.qq.com/cgi-bin/readtemplate?uin=&stype=&promote=&fr=&lang=zh_CN&ADTAG=&check=false&nav=download&t=weixin_download_list&loc=readtemplate,weixin,body,6"
+              >微信下载页</a
+            >
+          </el-tab-pane>
+          <el-tab-pane label="表格查看">
+            <el-pagination
+              layout="prev, pager, next"
+              :current-page.sync="currentPage"
+              :page-size.sync="pageSize"
+              :total="total"
+            >
+            </el-pagination>
+            <el-table
+              :data="regionData"
+              style="max-width: 100%; overflow-y: auto; margin: 5px"
+              row-key="id"
+              border
+            >
+              <el-table-column prop="5" label="ID" width="80">
+              </el-table-column>
+              <el-table-column prop="6" label="PID" width="80">
+              </el-table-column>
+              <el-table-column prop="0" label="Key"> </el-table-column>
+              <el-table-column prop="1" label="name_en"> </el-table-column>
+              <el-table-column prop="2" label="name_zh_CN"> </el-table-column>
+              <el-table-column prop="3" label="name_zh_HK"> </el-table-column>
+              <el-table-column prop="4" label="name_zh_TW"> </el-table-column>
+            </el-table>
+            <el-pagination
+              layout="prev, pager, next"
+              :current-page.sync="currentPage"
+              :page-size.sync="pageSize"
+              :total="total"
+            >
+            </el-pagination>
+          </el-tab-pane>
+          <el-tab-pane label="使用案例">
+            <iframe
+              id="phoneFrame"
+              frameborder="0"
+              src="./phone.html"
+              class="phone"
+            ></iframe>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.min.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.14.1/index.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.14.1/lib/index.js"></script>
+    <script src="./region.js"></script>
+    <script>
+      Vue.config.devtools = true;
+      var rawData = window.weixinRegionData;
+      var vm = new Vue({
+        el: "#app",
+        data() {
+          return {
+            infoData: [
+              ["微信版本", rawData.weixinVersion],
+              ["apk下载地址(来自官网)", rawData.apkUrl, "download"],
+              [
+                "apk包内文件mmregioncode_en.txt",
+                "./apk/assets/regioncode/mmregioncode_en.txt",
+                "download",
+              ],
+              [
+                "apk包内文件mmregioncode_zh_CN.txt",
+                "./apk/assets/regioncode/mmregioncode_zh_CN.txt",
+                "download",
+              ],
+              [
+                "apk包内文件mmregioncode_zh_HK.txt",
+                "./apk/assets/regioncode/mmregioncode_zh_HK.txt",
+                "download",
+              ],
+              [
+                "apk包内文件mmregioncode_zh_TW.txt",
+                "./apk/assets/regioncode/mmregioncode_zh_TW.txt",
+                "download",
+              ],
+              [
+                "apk包内文件mmregioncode_zh_TW.txt",
+                "./apk/assets/regioncode/mmregioncode_zh_TW.txt",
+                "download",
+              ],
+              [
+                "apk包内文件mmregioncode_zh_TW.txt",
+                "./apk/assets/regioncode/mmregioncode_zh_TW.txt",
+                "download",
+              ],
+              ["上次解析成功日期",new Date(rawData.ts).toLocaleString()],
+              ["解析结果(json)", "./region.json", "download"],
+              ["解析结果(js)", "./region.js", "download"],
+              ["解析结果(sql, 含建表语句)", "./region.sql", "download"],
+            ],
+            total: rawData.data.length,
+            currentPage: 1,
+            pageSize: 10,
+          };
+        },
+        computed: {
+          regionData() {
+            var start = (this.currentPage - 1) * this.pageSize;
+            return rawData.data.slice(start, start + this.pageSize);
+          },
+        },
+        mounted(){
+          document.body.classList.remove('loading');
+        }
+      });
+    </script>
+  </body>
+</html>
