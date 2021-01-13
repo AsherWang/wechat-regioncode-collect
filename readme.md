@@ -1,6 +1,6 @@
 ### 从微信apk包中获取并整理其省市区信息
 
-[看结果](https://asherwang.github.io/wechat-regioncode-collect)  
+[点这里看结果](https://asherwang.github.io/wechat-regioncode-collect)  
 
 从安卓微信包里边找到`regioncode`的定义，然后解析成需要的结构。
 
