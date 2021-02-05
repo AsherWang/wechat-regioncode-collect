@@ -9,7 +9,7 @@
   "main": "./docs/output/region.js",
   "scripts": {
     "rimraf": "./node_modules/rimraf/bin.js",
-    "clean" : "rimraf dist/ docs/output",
+    "clean": "rimraf dist/ docs/output",
     "dev": "tsc -w",
     "build": "tsc",
     "start": "node dist/index.js"
