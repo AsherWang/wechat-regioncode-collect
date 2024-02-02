@@ -231,7 +231,7 @@ DE_Erfurt|爱尔福特
 DE_Ansbach|安斯巴格
 DE_Augsburg|奥格斯堡
 DE_Berlin|柏林
-DE_Bayreuth|拜伊罗特
+DE_Bayreuth|拜罗伊特
 DE_Bielefeld|比勒费尔德
 DE_Potsdam|波茨坦
 DE_Bochum|波鸿

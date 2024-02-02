@@ -5,7 +5,7 @@ import genResult from './genResult';
 
 async function main() {
     console.log('start download')
-    const { path: apkPath, url: apkUrl } = await downloadApk();
+    const { path: apkPath, url: apkUrl, PAGE_URL: wechatDownloadPage } = await downloadApk();
     const version = apkPath.match(/weixin(\d+)android/)[1];
     console.log(`weixin version -> ${version}`);
     console.log('start unzip')
@@ -14,6 +14,7 @@ async function main() {
     const data = parseFiles(files);
     genResult(
         {
+            wechatDownloadPage,
             weixinVersion: version,
             apkUrl,
             ts: Date.now(),

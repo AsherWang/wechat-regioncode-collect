@@ -1,1 +1,1 @@
-window.weixinRegionInfo={"weixinVersion":"8020","apkUrl":"https://dldir1.qq.com/weixin/android/weixin8020android2100_arm64.apk","ts":1648226687792}
+window.weixinRegionInfo={"wechatDownloadPage":"https://weixin.qq.com/","weixinVersion":"8047","apkUrl":"https://dldir1.qq.com/weixin/android/weixin8047android2560_0x28002f30_arm64.apk","ts":1706857406045}
